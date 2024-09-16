@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Home</title>
+    <link rel="stylesheet" href="/css/admin_home.css">
+    <style>
+        /* Hide the default file input */
+        input[type="file"] {
+            display: none;
+        }
+        
+        /* Style for the custom button */
+        .custom-file-upload {
+            display: inline-block;
+            padding: 6px 12px;
+            cursor: pointer;
+            background-color: gray;
+            color: white;
+            border: none;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Welcome, Admin!</h1>
+        <p>Select a course and upload a video file to update attendance automatically:</p>
+
+        <form action="/admin/upload-video" method="POST" enctype="multipart/form-data">
+            <!-- Choose Course Dropdown -->
+            <label for="courseSelect">Choose Course:</label>
+            <select id="courseSelect" name="course" required>
+                <option value="">-- Select a Course --</option>
+                <option value="course1">Course 1</option>
+                <option value="course2">Course 2</option>
+                <option value="course3">Course 3</option>
+            </select>
+
+            <!-- Custom File Upload Button -->
+            <label for="videoFile" class="custom-file-upload">Choose Video File</label>
+            <input type="file" id="videoFile" name="videoFile" accept="video/*" required>
+            
+            <button type="submit">Upload Video</button>
+        </form>
+
+        <p id="statusMessage"></p>
+
+        <script>
+            const form = document.querySelector('form');
+            form.addEventListener('submit', (e) => {
+                document.getElementById("statusMessage").innerText = "Uploading and processing video. Please wait...";
+            });
+
+            // Trigger file input click when the custom button is clicked
+            const fileInput = document.getElementById('videoFile');
+            const customButton = document.querySelector('.custom-file-upload');
+            customButton.addEventListener('click', function() {
+                fileInput.click();
+            });
+        </script>
+    </div>
+</body>
+</html>
